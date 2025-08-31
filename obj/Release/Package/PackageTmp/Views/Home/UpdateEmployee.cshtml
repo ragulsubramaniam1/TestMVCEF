@@ -1,0 +1,108 @@
+﻿@model IEnumerable<LinqQueryEf.Models.DB_EF.EmpDetails>
+
+
+@if (TempData["Alertmsg"] != null)
+{
+    <script>alert('@TempData["Alertmsg"]');</script>
+}
+
+<script>
+    function loadEmployee(id) {
+        $("#employeeEditArea").load("/Home/View_Employee/" + id, function () {
+            var modal = new bootstrap.Modal(document.getElementById('employeeModal'));
+            modal.show();
+        });
+    }
+
+    function deleteemployee(id) {
+        if (confirm("Are you sure delete record Employee")) {
+            window.location.href = "/Home/Deleteemployee/" + id;
+        }
+    }
+
+</script>
+
+@if (TempData["Alert"] != null)
+{
+    <script>
+        alert(@TempData["Alert"]);
+    </script>
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4 class="mb-0">Employee List</h4>
+                </div>
+                <div class="card-body p-4">
+                    <table class="table table-bordered table-hover text-center align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Password</th>
+                                <th>Edit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Any())
+                            {
+                                foreach (var emp in Model)
+                                {
+                                    <tr>
+                                        <td>@emp.empusername</td>
+                                        <td>@emp.empemail</td>
+                                        <td>@emp.emppassword</td>
+                                        <td>
+                                            <a href="javascript:void(0);"
+                                               onclick="loadEmployee('@emp.Id')"
+                                               class="btn btn-warning btn-sm">
+                                                Edit
+                                            </a>
+                                            <a href="javascript:void(0);"
+                                               onclick="deleteemployee('@emp.Id')"
+                                               class="btn btn-danger btn-sm">
+                                                Delete
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="4" class="text-danger fw-bold">No Records Found</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="employeeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width: 30%;">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="employeeModalLabel">Edit Employee</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="employeeEditArea">
+                <!-- Partial view (_ViewEmployee.cshtml) will load here -->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (TempData["Alertmsg"] != null)
+{
+    <script>
+            alert(@TempData["Alertmsg"]);
+    </script>
+}

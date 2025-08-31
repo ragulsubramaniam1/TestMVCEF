@@ -1,0 +1,42 @@
+﻿@model LinqQueryEf.Models.DB_EF.EmpDetails
+
+@if (Model == null)
+{
+    <p class="text-danger">Employee not found.</p>
+}
+else
+{
+    <form method="post" action="/Home/UpdateEmployee" class="mt-3">
+
+        <input type="hidden" name="id" value="@Model.Id" />
+
+        <div class="mb-3 row align-items-center">
+            <label class="col-sm-3 col-form-label text-end">Username</label>
+            <div class="col-sm-9">
+                <input type="text" name="empusername" value="@Model.empusername" class="form-control" />
+            </div>
+        </div>
+
+        <div class="mb-3 row align-items-center">
+            <label class="col-sm-3 col-form-label text-end">Email</label>
+            <div class="col-sm-9">
+                <input type="email" name="empemail" value="@Model.empemail" class="form-control" />
+            </div>
+        </div>
+
+        <div class="mb-3 row align-items-center">
+            <label class="col-sm-3 col-form-label text-end">Password</label>
+            <div class="col-sm-9">
+                <input type="password" name="emppassword" value="@Model.emppassword" class="form-control" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-9 offset-sm-3">
+                <button type="submit" class="btn btn-success">Update</button>
+                <input type="hidden" name="empid" value="@Model.Id" />
+            </div>
+        </div>
+
+    </form>
+}

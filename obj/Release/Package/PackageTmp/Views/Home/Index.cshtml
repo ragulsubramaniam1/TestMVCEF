@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "New Employee";
+}
+
+@if (TempData["Alertmsg"] != null)
+{
+    <script>alert('@TempData["Alertmsg"]');</script>
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<script>
+    function togglePassword() {
+        const passwordInput = document.getElementById("emppassword");
+        const icon = document.getElementById("toggleIcon");
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash"); 
+        } else {
+            passwordInput.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");   
+        }
+    }
+</script>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg rounded-3">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>Add Employee</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="/Home/InsertRecords">
+
+                        <div class="mb-3 row align-items-center">
+                            <label class="col-sm-3 col-form-label text-end">Username</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="empusername" class="form-control w-100" placeholder="Enter username" required />
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row align-items-center">
+                            <label class="col-sm-3 col-form-label text-end">Email</label>
+                            <div class="col-sm-9">
+                                <input type="email" name="empemail" class="form-control w-100" placeholder="Enter email" required />
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row align-items-center">
+                            <label class="col-sm-3 col-form-label text-end">Password</label>
+                            <div class="col-sm-9">
+                                <div class="input-group w-100">
+                                    <input type="password" id="emppassword" name="emppassword"
+                                           class="form-control" placeholder="Enter password" required />
+                                    <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()">
+                                        <i id="toggleIcon" class="fa fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success">Save</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
