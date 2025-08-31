@@ -8,12 +8,12 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # copy the project file(s) and restore dependencies
-COPY ["TestMVCEF/TestMVCEF.csproj", "TestMVCEF/"]
-RUN dotnet restore "TestMVCEF/TestMVCEF.csproj"
+COPY ["TestMVCEF.csproj", "./"]
+RUN dotnet restore "TestMVCEF.csproj"
 
 # copy everything else and build
 COPY . .
-WORKDIR "/src/TestMVCEF"
+WORKDIR "/src"
 RUN dotnet publish "TestMVCEF.csproj" -c Release -o /app/publish
 
 # final stage
